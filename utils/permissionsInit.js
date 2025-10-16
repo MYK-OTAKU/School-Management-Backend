@@ -34,7 +34,29 @@ const initDefaultRolesAndPermissions = async () => {
       { name: 'ORDERS_VIEW', description: 'Voir les commandes' },
       { name: 'ORDERS_CREATE', description: 'Créer des commandes' },
       { name: 'ORDERS_UPDATE', description: 'Modifier des commandes' },
-      { name: 'ORDERS_DELETE', description: 'Supprimer des commandes' }
+      { name: 'ORDERS_DELETE', description: 'Supprimer des commandes' },
+
+      // Permissions élèves
+      { name: 'STUDENTS_VIEW', description: 'Voir les élèves' },
+      { name: 'STUDENTS_CREATE', description: 'Créer des élèves' },
+      { name: 'STUDENTS_UPDATE', description: 'Modifier des élèves' },
+      { name: 'STUDENTS_DELETE', description: 'Supprimer des élèves' },
+      { name: 'ENROLLMENTS_MANAGE', description: 'Gérer les inscriptions des élèves' },
+
+      // Permissions paiements
+      { name: 'PAYMENTS_VIEW', description: 'Voir les paiements élèves' },
+      { name: 'PAYMENTS_CREATE', description: 'Enregistrer des paiements élèves' },
+      { name: 'PAYMENTS_UPDATE', description: 'Mettre à jour les paiements élèves' },
+      { name: 'PAYMENTS_DELETE', description: 'Supprimer des paiements élèves' },
+      { name: 'RECEIPTS_GENERATE', description: 'Générer des reçus financiers' },
+      { name: 'FINANCIAL_REPORTS', description: 'Consulter les rapports financiers' },
+
+      // Permissions pédagogiques
+      { name: 'GRADES_VIEW', description: 'Voir les notes des élèves' },
+      { name: 'GRADES_CREATE', description: 'Saisir les notes des élèves' },
+      { name: 'GRADES_UPDATE', description: 'Modifier les notes des élèves' },
+      { name: 'ATTENDANCE_VIEW', description: 'Consulter les présences' },
+      { name: 'ATTENDANCE_MARK', description: 'Enregistrer les présences des élèves' }
     ];
 
     // Créer les permissions si elles n'existent pas
@@ -54,17 +76,42 @@ const initDefaultRolesAndPermissions = async () => {
       {
         name: 'Administrateur',
         description: 'Accès complet au système',
-        permissions: ['ADMIN', 'USERS_ADMIN', 'ROLES_MANAGE', 'PERMISSIONS_MANAGE', 'USERS_VIEW', 'ROLES_VIEW', 'PERMISSIONS_VIEW', 'MONITORING_VIEW', 'CONTENT_VIEW', 'CONTENT_MANAGE', 'REPORTS_VIEW', 'SETTINGS_MANAGE', 'PRODUCTS_VIEW', 'PRODUCTS_CREATE', 'PRODUCTS_UPDATE', 'PRODUCTS_DELETE', 'ORDERS_VIEW', 'ORDERS_CREATE', 'ORDERS_UPDATE', 'ORDERS_DELETE']
+        permissions: ['ADMIN', 'USERS_ADMIN', 'ROLES_MANAGE', 'PERMISSIONS_MANAGE', 'USERS_VIEW', 'ROLES_VIEW', 'PERMISSIONS_VIEW', 'MONITORING_VIEW', 'CONTENT_VIEW', 'CONTENT_MANAGE', 'REPORTS_VIEW', 'SETTINGS_MANAGE', 'PRODUCTS_VIEW', 'PRODUCTS_CREATE', 'PRODUCTS_UPDATE', 'PRODUCTS_DELETE', 'ORDERS_VIEW', 'ORDERS_CREATE', 'ORDERS_UPDATE', 'ORDERS_DELETE', 'STUDENTS_VIEW', 'STUDENTS_CREATE', 'STUDENTS_UPDATE', 'STUDENTS_DELETE', 'ENROLLMENTS_MANAGE', 'PAYMENTS_VIEW', 'PAYMENTS_CREATE', 'PAYMENTS_UPDATE', 'PAYMENTS_DELETE', 'RECEIPTS_GENERATE', 'FINANCIAL_REPORTS', 'GRADES_VIEW', 'GRADES_CREATE', 'GRADES_UPDATE', 'ATTENDANCE_VIEW', 'ATTENDANCE_MARK']
       },
       {
         name: 'Manager',
         description: 'Gestion opérationnelle',
-        permissions: ['USERS_VIEW', 'CONTENT_VIEW', 'CONTENT_MANAGE', 'REPORTS_VIEW', 'MONITORING_VIEW', 'PRODUCTS_VIEW', 'PRODUCTS_CREATE', 'PRODUCTS_UPDATE', 'ORDERS_VIEW', 'ORDERS_CREATE', 'ORDERS_UPDATE']
+        permissions: ['USERS_VIEW', 'CONTENT_VIEW', 'CONTENT_MANAGE', 'REPORTS_VIEW', 'MONITORING_VIEW', 'PRODUCTS_VIEW', 'PRODUCTS_CREATE', 'PRODUCTS_UPDATE', 'ORDERS_VIEW', 'ORDERS_CREATE', 'ORDERS_UPDATE', 'STUDENTS_VIEW', 'STUDENTS_CREATE', 'STUDENTS_UPDATE', 'ENROLLMENTS_MANAGE', 'PAYMENTS_VIEW', 'PAYMENTS_CREATE', 'PAYMENTS_UPDATE', 'GRADES_VIEW', 'ATTENDANCE_VIEW', 'ATTENDANCE_MARK']
       },
       {
         name: 'Utilisateur',
         description: 'Accès de base pour les utilisateurs',
-        permissions: ['CONTENT_VIEW', 'REPORTS_VIEW', 'PRODUCTS_VIEW', 'ORDERS_VIEW']
+        permissions: ['CONTENT_VIEW', 'REPORTS_VIEW', 'PRODUCTS_VIEW', 'ORDERS_VIEW', 'STUDENTS_VIEW']
+      },
+      {
+        name: 'Directeur',
+        description: 'Direction de l\'établissement',
+        permissions: ['ADMIN', 'USERS_ADMIN', 'ROLES_MANAGE', 'PERMISSIONS_MANAGE', 'USERS_VIEW', 'ROLES_VIEW', 'PERMISSIONS_VIEW', 'MONITORING_VIEW', 'CONTENT_VIEW', 'CONTENT_MANAGE', 'REPORTS_VIEW', 'SETTINGS_MANAGE', 'STUDENTS_VIEW', 'STUDENTS_CREATE', 'STUDENTS_UPDATE', 'ENROLLMENTS_MANAGE', 'PAYMENTS_VIEW', 'PAYMENTS_CREATE', 'PAYMENTS_UPDATE', 'PAYMENTS_DELETE', 'RECEIPTS_GENERATE', 'FINANCIAL_REPORTS', 'GRADES_VIEW', 'GRADES_CREATE', 'GRADES_UPDATE', 'ATTENDANCE_VIEW', 'ATTENDANCE_MARK']
+      },
+      {
+        name: 'Secrétaire',
+        description: 'Gestion administrative quotidienne',
+        permissions: ['STUDENTS_VIEW', 'STUDENTS_CREATE', 'STUDENTS_UPDATE', 'ENROLLMENTS_MANAGE', 'PAYMENTS_VIEW', 'PAYMENTS_CREATE', 'PAYMENTS_UPDATE']
+      },
+      {
+        name: 'Comptable',
+        description: 'Gestion financière de l\'établissement',
+        permissions: ['PAYMENTS_VIEW', 'PAYMENTS_CREATE', 'PAYMENTS_UPDATE', 'PAYMENTS_DELETE', 'RECEIPTS_GENERATE', 'FINANCIAL_REPORTS']
+      },
+      {
+        name: 'Professeur',
+        description: 'Personnel enseignant',
+        permissions: ['STUDENTS_VIEW', 'GRADES_VIEW', 'GRADES_CREATE', 'GRADES_UPDATE', 'ATTENDANCE_VIEW', 'ATTENDANCE_MARK']
+      },
+      {
+        name: 'Parent',
+        description: 'Responsable légal d\'un élève',
+        permissions: ['STUDENTS_VIEW', 'RECEIPTS_GENERATE', 'REPORTS_VIEW']
       }
     ];
 

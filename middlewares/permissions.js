@@ -19,7 +19,11 @@ const checkPermission = (requiredPermission) => {
       const user = await User.findByPk(req.user.id, {
         include: [{
           model: Role,
-          include: [Permission]
+          as: 'role',
+          include: [{
+            model: Permission,
+            as: 'permissions'
+          }]
         }]
       });
 
@@ -38,11 +42,11 @@ const checkPermission = (requiredPermission) => {
       }
 
       // Vérifier si l'utilisateur a la permission requise
-      const userPermissions = user.Role?.Permissions?.map(p => p.name) || [];
+      const userPermissions = user.role?.permissions?.map(p => p.name) || [];
       
       // Ajouter les permissions à l'objet req.user pour utilisation ultérieure
       req.user.permissions = userPermissions;
-      req.user.role = user.Role;
+      req.user.role = user.role;
 
       if (!hasPermission(userPermissions, requiredPermission)) {
         return res.status(403).json({
@@ -80,7 +84,11 @@ const checkAnyPermission = (permissions) => {
       const user = await User.findByPk(req.user.id, {
         include: [{
           model: Role,
-          include: [Permission]
+          as: 'role',
+          include: [{
+            model: Permission,
+            as: 'permissions'
+          }]
         }]
       });
 
@@ -91,9 +99,9 @@ const checkAnyPermission = (permissions) => {
         });
       }
 
-      const userPermissions = user.Role?.Permissions?.map(p => p.name) || [];
+      const userPermissions = user.role?.permissions?.map(p => p.name) || [];
       req.user.permissions = userPermissions;
-      req.user.role = user.Role;
+      req.user.role = user.role;
 
       // Vérifier si l'utilisateur a au moins une des permissions requises
       const hasAnyPermission = permissions.some(permission => 
@@ -136,7 +144,11 @@ const checkAllPermissions = (permissions) => {
       const user = await User.findByPk(req.user.id, {
         include: [{
           model: Role,
-          include: [Permission]
+          as: 'role',
+          include: [{
+            model: Permission,
+            as: 'permissions'
+          }]
         }]
       });
 
@@ -147,9 +159,9 @@ const checkAllPermissions = (permissions) => {
         });
       }
 
-      const userPermissions = user.Role?.Permissions?.map(p => p.name) || [];
+      const userPermissions = user.role?.permissions?.map(p => p.name) || [];
       req.user.permissions = userPermissions;
-      req.user.role = user.Role;
+      req.user.role = user.role;
 
       // Vérifier si l'utilisateur a toutes les permissions requises
       const hasAllPermissions = permissions.every(permission => 

@@ -1,10 +1,9 @@
-const { sequelize } = require('../models');
-
-// Configuration de l'environnement de test
 process.env.NODE_ENV = 'test';
-process.env.JWT_SECRET = 'test_secret_key';
-process.env.DB_TYPE = 'sqlite';
-process.env.SQLITE_PATH = ':memory:';
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test_secret_key';
+process.env.DB_TYPE = process.env.DB_TYPE || 'sqlite';
+process.env.SQLITE_PATH = process.env.SQLITE_PATH || ':memory:';
+
+const { sequelize } = require('../config/sequelize');
 
 // Configuration globale pour les tests
 beforeAll(async () => {

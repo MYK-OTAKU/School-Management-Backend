@@ -32,6 +32,10 @@ const settingsRoutes = require('./routes/SettingsRoutes');
 const categoryRoutes = require('./routes/CategoryRoutes');
 const productRoutes = require('./routes/ProductRoutes');
 const orderRoutes = require('./routes/OrderRoutes');
+const paymentRoutes = require('./routes/PaymentRoutes');
+const schoolYearRoutes = require('./routes/SchoolYearRoutes');
+const classRoomRoutes = require('./routes/ClassRoomRoutes');
+const studentRoutes = require('./routes/StudentRoutes');
 const { trackUserSession } = require('./middlewares/audit');
 const { errorMiddleware } = require('./utils/errorHandler');
 const { standardizeResponse } = require('./utils/responseHandler');
@@ -80,6 +84,10 @@ app.use('/api/monitoring', monitoringRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/school-years', schoolYearRoutes);
+app.use('/api/classrooms', classRoomRoutes);
+app.use('/api/students', studentRoutes);
 
 // ====================
 // DATABASE SYNC

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
-const { sequelize } = require('../database/sequelize');
-const Utilisateurs = require('../../models/Utilisateur');
+const { sequelize } = require('../../config/sequelize');
+const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 
 beforeAll(async () => {
