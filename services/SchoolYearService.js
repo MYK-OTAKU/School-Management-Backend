@@ -58,7 +58,10 @@ class SchoolYearService {
 
       if (schoolYear.isActive) {
         await SchoolYear.update({ isActive: false }, {
-          where: { id: { [Op.ne]: schoolYear.id } },
+          where: {
+            id: { [Op.ne]: schoolYear.id },
+            isActive: true
+          },
           transaction
         });
       }
@@ -101,7 +104,10 @@ class SchoolYearService {
 
       if (willBeActive) {
         await SchoolYear.update({ isActive: false }, {
-          where: { id: { [Op.ne]: schoolYear.id } },
+          where: {
+            id: { [Op.ne]: schoolYear.id },
+            isActive: true
+          },
           transaction
         });
       }
@@ -129,7 +135,10 @@ class SchoolYearService {
       }
 
       await SchoolYear.update({ isActive: false }, {
-        where: { id: { [Op.ne]: id } },
+        where: {
+          id: { [Op.ne]: id },
+          isActive: true
+        },
         transaction
       });
 

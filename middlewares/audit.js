@@ -22,7 +22,13 @@ exports.trackUserSession = async (req, res, next) => {
 
       if (activeSession) {
         // Mettre à jour la session existante
-        await AuditService.updateSessionActivity(activeSession, ipAddress);
+        // Assurer que req.user.id est bien un entier
+        const userId = req.user && typeof req.user.id === 'number' ? req.user.id : null;
+        if (userId) {
+            await AuditService.updateSessionActivity(userId, ipAddress, userAgent);
+        } else {
+            console.error('User ID invalide pour le suivi de session');
+        }
         req.userSession = activeSession;
       } else {
         // Créer une nouvelle session si nécessaire
